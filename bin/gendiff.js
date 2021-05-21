@@ -4,6 +4,7 @@ const program = new Command();
 
 program
     .description('Compares two configuration files and shows a difference.')
+    .option('-f, --format [type]', 'output format');
     // .option('-h, --help', 'output usage information')
     //.option('-v, --version', 'output the version number');
 
@@ -13,5 +14,6 @@ program.parse(process.argv);
 
 const options = program.opts();
 
+if (options.format) console.log(`- ${options.format}`);
 // if (options.help) console.log(program.opts());
 // if (options.version) console.log('version 0.1');
