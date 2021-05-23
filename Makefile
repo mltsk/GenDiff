@@ -1,4 +1,8 @@
 publish:
 	npm publish --dry-run
 gendiff:
-	node bin/gendiff.js
+	node gendiff.js
+lint:
+	npx eslint .
+lintfix:
+	npx eslint . --fix
