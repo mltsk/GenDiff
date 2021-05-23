@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { readFileSync } from 'fs';
 import _ from 'lodash';
-import path from 'path';
+// import path from 'path';
 import { Command } from 'commander';
 
 const program = new Command();
