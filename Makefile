@@ -13,6 +13,6 @@ test-coverage:
 run:
 	gendiff file1.json file2.json 
 jest:
-	npx -n '--experimental-vm-modules' jest 
+	npx -n '--experimental-vm-modules' jest --watch
 
 .PHONY: test
