@@ -1,10 +1,10 @@
 import { readFileSync } from 'fs';
 import _ from 'lodash';
 
-export default function genDiff(file1, file2) {
+export default function genDiff(data1, data2) {
   const result = ['{\n'];
-  const data1 = JSON.parse(readFileSync(file1).toString());
-  const data2 = JSON.parse(readFileSync(file2).toString());
+  // const data1 = JSON.parse(readFileSync(fileName1).toString());
+  // const data2 = JSON.parse(readFileSync(fileName2).toString());
   const key1 = _.keys(data1);
   const key2 = _.keys(data2);
   const keys = _.uniq((key1).concat(key2));

@@ -11,7 +11,7 @@ lintfix:
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 run:
-	gendiff file1.json file2.json 
+	gendiff file1.yaml file2.yaml
 jest:
 	npx -n '--experimental-vm-modules' jest --watch
 rec:

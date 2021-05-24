@@ -3,10 +3,7 @@ import path, { dirname } from 'path';
 
 // import { readFileSync } from 'fs';
 import genDiff from '../module/genDiff.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+import parsers from '../module/parsers.js';
 
 test('genDiff', () => {
   const reference = `{
@@ -20,7 +17,7 @@ test('genDiff', () => {
 
   // const reference = readFileSync(getFixturePath('expected_file.txt'), 'utf8').toString();
 
-  const actual = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'));
+  const actual = genDiff(parsers('file1.json'), parsers('file2.json'));
 
   expect(actual).toEqual(reference);
 });
