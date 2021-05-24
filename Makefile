@@ -14,5 +14,6 @@ run:
 	gendiff file1.json file2.json 
 jest:
 	npx -n '--experimental-vm-modules' jest --watch
-
+rec:
+	asciinema rec
 .PHONY: test
