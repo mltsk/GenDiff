@@ -3,7 +3,7 @@ import { Command } from 'commander';
 
 import genDiff from '../module/genDiff.js';
 import parsers from '../module/parsers.js';
-import getFormat from '../module/getformat.js';
+import path, { dirname } from 'path';
 
 const program = new Command();
 const options = program.opts();
@@ -14,7 +14,7 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format')
   .action((file1, file2) => {
-    options.format = getFormat(file1);
+    options.format = path.extname(file1);
     const diff = genDiff(parsers(file1), parsers(file2));
     console.log(diff);
   });
