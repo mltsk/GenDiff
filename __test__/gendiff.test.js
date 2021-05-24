@@ -1,17 +1,15 @@
-import genDiff from '../module/genDiff.js';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import path from 'path';
-import { readFileSync } from 'fs';
+import path, { dirname } from 'path';
+
+// import { readFileSync } from 'fs';
+import genDiff from '../module/genDiff.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
-
 test('genDiff', () => {
-
-const reference = `{
+  const reference = `{
   - follow: false
     host: hexlet.io
   - proxy: 123.234.53.22
@@ -28,7 +26,6 @@ const reference = `{
 });
 
 // console.log(genDiff('./files/file1.json', './files/file2.json'));
-
 
 // const reference = readFileSync(getFixturePath('expected_file.txt'), 'utf8').toString();
 // console.log(reference);

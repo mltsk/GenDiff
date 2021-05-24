@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import genDiff from '../module/genDiff.js';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import path from 'path';
+import path, { dirname } from 'path';
+
+import genDiff from '../module/genDiff.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
