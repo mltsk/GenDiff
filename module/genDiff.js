@@ -1,4 +1,3 @@
-import { readFileSync } from 'fs';
 import _ from 'lodash';
 
 export default function genDiff(data1, data2) {

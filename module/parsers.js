@@ -8,9 +8,9 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 const parsers = (filename) => {
-    const data = yaml.load(fs.readFileSync(getFixturePath(filename), 'utf8'));
-    return data;
-}
+  const data = yaml.load(fs.readFileSync(getFixturePath(filename), 'utf8'));
+  return data;
+};
 
 // console.log(parsers('file2.yaml'));
 

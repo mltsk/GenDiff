@@ -1,15 +1,9 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
 
 import genDiff from '../module/genDiff.js';
 import parsers from '../module/parsers.js';
 import getFormat from '../module/getformat.js';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = dirname(__filename);
-// const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 const program = new Command();
 const options = program.opts();

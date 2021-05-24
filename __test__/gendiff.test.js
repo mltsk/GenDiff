@@ -1,7 +1,3 @@
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
-
-// import { readFileSync } from 'fs';
 import genDiff from '../module/genDiff.js';
 import parsers from '../module/parsers.js';
 
