@@ -2,15 +2,12 @@ import _ from 'lodash';
 
 const stylish = (obj, symbol, offset) => {
     
-
     const getNumberSpace = (property, offset) => {
         return property.split('.').length * offset;
-        
     }
 
     const makeSpace = (number, symbol, correction = 0) => {
         return symbol.repeat(number + correction);
-        
     }
 
     const getPrefix = (status) => {
@@ -19,8 +16,6 @@ const stylish = (obj, symbol, offset) => {
     }
 
     const objectStylish = (obj, startSpace, offset) => {
-
-        
         let result = ``;
 
         const f = (result, obj, startSpace, offset) => {
@@ -46,16 +41,25 @@ const stylish = (obj, symbol, offset) => {
         return result;
     }
 
+
+
     let result = `{\n`;
     obj.map((item) => {
         const numberSpace = getNumberSpace(item.property, offset)
         const spaces = makeSpace(numberSpace, symbol, -2);
 
         let value = item.value;
-        // if(typeof(value) === 'object') {
-        //     value = objectStylish(value, numberSpace, offset)
-        //     result += `${spaces}${getPrefix(item.status)}${item.name}:${value}`;
-        // }
+        
+
+        if(typeof(item.children) === 'object') {
+            value = stylish(item.children, symbol, offset)
+            result += `${spaces}${getPrefix(item.status)}${item.name}:${value}`;
+        }
+        else  if(typeof(value) === 'object') {
+            value = objectStylish(value, numberSpace, offset)
+            result += `${spaces}${getPrefix(item.status)}${item.name}:${value}`;
+        }
+        
 
         if (item.status === 'updated') {
             result += `${spaces}${getPrefix('removed')}${item.name}:${value}\n`;
@@ -64,28 +68,6 @@ const stylish = (obj, symbol, offset) => {
             result += `${spaces}${getPrefix(item.status)}${item.name}:${value}\n`;
             
         }
-
-        
-
-        // if(item.status === 'unchanged') {
-        //     const spaces = (getSpace(item.property, offset));
-        //     result += `${spaces}${item.name}: ${item.value}\n`;
-        // } else if(item.status === 'added') {
-        //     const spaces = (getSpace(item.property, offset, -2));
-        //     if(typeof(item.value) === 'object') {
-        //         // console.log('item.value: ', JSON.stringify(item.value, null, ));
-        //         item.value = `${JSON.stringify(item.value, null, 4).replace(/[{}"]/g, '')}`
-        //     }
-        //     result += `${spaces}+ ${item.name}: ${item.value}\n`;
-            
-        // } else if(item.status === 'removed') {
-        //     const spaces = (getSpace(item.property, offset, -2));
-        //     result += `${spaces}- ${item.name}: ${item.value}\n`;
-        // } else if(item.status === 'updated') {
-        //     const spaces = (getSpace(item.property, offset, -2));
-        //     result += `${spaces}- ${item.name}: ${item.value}\n`;
-        //     result += `${spaces}+ ${item.name}: ${item.newValue}\n`;
-        // }
     });
     result += `{`
     console.log(result);
