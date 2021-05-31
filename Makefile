@@ -13,7 +13,7 @@ test-coverage:
 run:
 	gendiff file1.yaml file2.yaml
 jest:
-	npx -n '--experimental-vm-modules' jest --watch
+	npx -n '--experimental-vm-modules' jest
 rec:
 	asciinema rec
 .PHONY: test

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
+import stylish from '../module/stylish.js';
 
 import genDiff from '../module/genDiff.js';
 import parsers from '../module/parsers.js';
@@ -16,7 +17,7 @@ program
   .action((file1, file2) => {
     options.format = path.extname(file1);
     const diff = genDiff(parsers(file1), parsers(file2));
-    console.log(diff);
+    console.log(stylish(diff,'.', 4));
   });
 
 program.parse(program.args);

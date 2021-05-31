@@ -12,6 +12,6 @@ const parsers = (filename) => {
   return data;
 };
 
-// console.log(parsers('file2.yaml'));
+// console.log('11111', parsers('file3.json').common.setting6);
 
 export default parsers;
