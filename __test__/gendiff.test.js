@@ -48,17 +48,7 @@ test('genDiff', () => {
     }
 }`;
 
-  // const reference = readFileSync(getFixturePath('expected_file.txt'), 'utf8').toString();
+  const actual = stylish(genDiff(parsers('file3.json'), parsers('file4.json')), ' ', 4);
 
-  const actual = genDiff(parsers('file3.json'), parsers('file4.json'));
-  console.log('actual: ', stylish(actual));
-
-  expect(stylish(actual)).toEqual(reference);
+  expect(actual).toEqual(reference);
 });
-
-// console.log(genDiff('./files/file1.json', './files/file2.json'));
-
-// const reference = readFileSync(getFixturePath('expected_file.txt'), 'utf8').toString();
-// console.log(reference);
-// const actual = genDiff(getFixturePath('file1.json'), getFixturePath('file2.json'));
-// console.log(actual);
