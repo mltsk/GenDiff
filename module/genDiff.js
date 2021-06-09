@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {stylish, plain} from '../formatters/index.js';
 
 const path = (property1, property2) => (property1 ? `${property1}.${property2}` : property2);
 
@@ -7,41 +8,51 @@ const removePath = (property, item) => {
   property.replace(`${item}`, '');
 };
 
-export default function genDiff(data1, data2, property = '') {
-  const result = [];
+export default function genDiff(data1, data2, format = 'stylish') {
+  console.log('format: ', format);
 
-  const key1 = _.keys(data1);
-  const key2 = _.keys(data2);
-  const keys = _.uniq((key1).concat(key2));
-  const keysSorted = _.sortBy(keys);
+  function diff(data1, data2, property = '') {
+    const result = [];
 
-  keysSorted.forEach((item) => {
-    const temp = {};
-    temp.name = `${item}`;
-    temp.property = `${path(property, `${item}`)}`;
+    const key1 = _.keys(data1);
+    const key2 = _.keys(data2);
+    const keys = _.uniq((key1).concat(key2));
+    const keysSorted = _.sortBy(keys);
 
-    if ((typeof (data1[item]) === 'object' && typeof (data2[item]) === 'object')) {
-      temp.status = 'unchanged';
-      temp.value = '[complex value]';
-      temp.children = (genDiff(data1[item], data2[item], `${path(property, `${item}`)}`));
-      removePath(property, `${item}`);
-    } else if (key1.includes(item) && key2.includes(item) && data1[item] === data2[item]) {
-      temp.status = 'unchanged';
-      temp.value = data1[item];
-    } else if (key1.includes(item) && key2.includes(item) && data1[item] !== data2[item]) {
-      temp.status = 'updated';
-      temp.value = data1[item];
-      temp.newValue = data2[item];
-    } else if (key1.includes(item)) {
-      temp.status = 'removed';
-      temp.value = data1[item];
-    } else {
-      temp.status = 'added';
-      temp.value = data2[item];
-    }
+    keysSorted.forEach((item) => {
+      const temp = {};
+      temp.name = `${item}`;
+      temp.property = `${path(property, `${item}`)}`;
 
-    result.push(temp);
-  });
+      if ((typeof (data1[item]) === 'object' && typeof (data2[item]) === 'object')) {
+        temp.status = 'unchanged';
+        temp.value = '[complex value]';
+        temp.children = (diff(data1[item], data2[item], `${path(property, `${item}`)}`));
+        removePath(property, `${item}`);
+      } else if (key1.includes(item) && key2.includes(item) && data1[item] === data2[item]) {
+        temp.status = 'unchanged';
+        temp.value = data1[item];
+      } else if (key1.includes(item) && key2.includes(item) && data1[item] !== data2[item]) {
+        temp.status = 'updated';
+        temp.value = data1[item];
+        temp.newValue = data2[item];
+      } else if (key1.includes(item)) {
+        temp.status = 'removed';
+        temp.value = data1[item];
+      } else {
+        temp.status = 'added';
+        temp.value = data2[item];
+      }
 
-  return result;
+      result.push(temp);
+    });
+    return result;
+    
+  }
+  if (format === 'stylish') {
+    return stylish(diff(data1, data2));
+  }else if(format === 'plain') {
+    return plain(diff(data1, data2));
+  }
+
 }

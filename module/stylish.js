@@ -20,7 +20,7 @@ const ObjectStylish = (obj, symbol, offset) => {
   return result;
 };
 
-const stylish = (obj, symbol, offset) => {
+const stylish = (obj, symbol = ' ', offset = 4) => {
   let result = '{\n';
   obj.forEach((item) => {
     let { value } = item;

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import path from 'path';
-import stylish from '../module/stylish.js';
 
 import genDiff from '../module/genDiff.js';
 import parsers from '../module/parsers.js';
@@ -15,13 +14,15 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format')
   .action((file1, file2) => {
-    options.format = path.extname(file1);
-    const diff = genDiff(parsers(file1), parsers(file2));
-    console.log(stylish(diff, ' ', 4));
+    // options.format = path.extname(file1);
+    const formatName = options.format;
+    const diff = genDiff(parsers(file1), parsers(file2), formatName);
+    // console.log(stylish(diff));
+    console.log(diff);
   });
 
 program.parse(program.args);
 
-if (options.format) console.log(`format ${options.format}`);
+// if (options.format) console.log(`format ${options.format}`);
 
 // export default genDiff;
