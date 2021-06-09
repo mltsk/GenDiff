@@ -9,6 +9,13 @@ const removePath = (property, item) => {
 };
 
 export default function genDiff(file1, file2, format = 'stylish') {
+  const getFormatter = () => {
+    if (format === 'plain') {
+      return plain;
+    }
+    return stylish;
+  };
+
   function diff(data1, data2, property = '') {
     const result = [];
 
@@ -46,10 +53,8 @@ export default function genDiff(file1, file2, format = 'stylish') {
     });
     return result;
   }
-  if (format === 'stylish') {
-    return stylish(diff(file1, file2));
-  } if (format === 'plain') {
-    return plain(diff(file1, file2));
-  }
-  return diff(file1, file2);
+
+  const formatter = getFormatter();
+
+  return formatter(diff(file1, file2));
 }
