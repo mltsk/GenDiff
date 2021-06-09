@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {stylish, plain} from '../formatters/index.js';
+import { stylish, plain } from '../formatters/index.js';
 
 const path = (property1, property2) => (property1 ? `${property1}.${property2}` : property2);
 
@@ -8,9 +8,7 @@ const removePath = (property, item) => {
   property.replace(`${item}`, '');
 };
 
-export default function genDiff(data1, data2, format = 'stylish') {
-  console.log('format: ', format);
-
+export default function genDiff(file1, file2, format = 'stylish') {
   function diff(data1, data2, property = '') {
     const result = [];
 
@@ -47,12 +45,11 @@ export default function genDiff(data1, data2, format = 'stylish') {
       result.push(temp);
     });
     return result;
-    
   }
   if (format === 'stylish') {
-    return stylish(diff(data1, data2));
-  }else if(format === 'plain') {
-    return plain(diff(data1, data2));
+    return stylish(diff(file1, file2));
+  } if (format === 'plain') {
+    return plain(diff(file1, file2));
   }
-
+  return diff(file1, file2);
 }
