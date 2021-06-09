@@ -19,7 +19,6 @@ const getFormatter = (format) => {
 export default function genDiff(file1, file2, format = 'stylish') {
   const diff = (data1, data2, property = '') => {
     const result = [];
-
     const key1 = _.keys(data1);
     const key2 = _.keys(data2);
     const keys = _.uniq((key1).concat(key2));
