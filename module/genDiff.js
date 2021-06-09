@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { stylish, plain } from '../formatters/index.js';
+import { stylish, plain, json } from '../formatters/index.js';
 
 const path = (property1, property2) => (property1 ? `${property1}.${property2}` : property2);
 
@@ -12,6 +12,8 @@ export default function genDiff(file1, file2, format = 'stylish') {
   const getFormatter = () => {
     if (format === 'plain') {
       return plain;
+    } if (format === 'json') {
+      return json;
     }
     return stylish;
   };

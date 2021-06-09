@@ -59,9 +59,73 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
+  const expected3 = `{
+  "follow": {
+    "property": "common.follow",
+    "status": "added",
+    "value": false
+  },
+  "setting2": {
+    "property": "common.setting2",
+    "status": "removed",
+    "value": 200
+  },
+  "setting3": {
+    "property": "common.setting3",
+    "status": "updated",
+    "value": true,
+    "newValue": null
+  },
+  "setting4": {
+    "property": "common.setting4",
+    "status": "added",
+    "value": "blah blah"
+  },
+  "setting5": {
+    "property": "common.setting5",
+    "status": "added",
+    "value": "[complex value]"
+  },
+  "wow": {
+    "property": "common.setting6.doge.wow",
+    "status": "updated",
+    "value": "",
+    "newValue": "so much"
+  },
+  "ops": {
+    "property": "common.setting6.ops",
+    "status": "added",
+    "value": "vops"
+  },
+  "baz": {
+    "property": "group1.baz",
+    "status": "updated",
+    "value": "bas",
+    "newValue": "bars"
+  },
+  "nest": {
+    "property": "group1.nest",
+    "status": "updated",
+    "value": "[complex value]",
+    "newValue": "str"
+  },
+  "group2": {
+    "property": "group2",
+    "status": "removed",
+    "value": "[complex value]"
+  },
+  "group3": {
+    "property": "group3",
+    "status": "added",
+    "value": "[complex value]"
+  }
+}`;
+
   const actual1 = genDiff(parsers('file3.json'), parsers('file4.json'), 'stylish');
   const actual2 = genDiff(parsers('file3.json'), parsers('file4.json'), 'plain');
+  const actual3 = genDiff(parsers('file3.json'), parsers('file4.json'), 'json');
 
   expect(actual1).toEqual(expected1);
   expect(actual2).toEqual(expected2);
+  expect(actual3).toEqual(expected3);
 });
