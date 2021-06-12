@@ -1,5 +1,4 @@
 import genDiff from '../module/genDiff.js';
-import parsers from '../module/parsers.js';
 
 test('genDiff', () => {
   const expected1 = `{
@@ -121,9 +120,9 @@ Property 'group3' was added with value: [complex value]`;
   }
 }`;
 
-  const actual1 = genDiff(parsers('file3.json'), parsers('file4.json'), 'stylish');
-  const actual2 = genDiff(parsers('file3.json'), parsers('file4.json'), 'plain');
-  const actual3 = genDiff(parsers('file3.json'), parsers('file4.json'), 'json');
+  const actual1 = genDiff('file3.json', 'file4.json', 'stylish');
+  const actual2 = genDiff('file3.json', 'file4.json', 'plain');
+  const actual3 = genDiff('file3.json', 'file4.json', 'json');
 
   expect(actual1).toEqual(expected1);
   expect(actual2).toEqual(expected2);

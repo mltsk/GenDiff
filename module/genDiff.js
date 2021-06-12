@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { stylish, plain, json } from '../formatters/index.js';
+import parse from './parsers.js';
 
 const path = (property1, property2) => (property1 ? `${property1}.${property2}` : property2);
 
@@ -16,8 +17,11 @@ const getFormatter = (format) => {
   return stylish;
 };
 
-export default function genDiff(file1, file2, format = 'stylish') {
-  const diff = (data1, data2, property = '') => {
+export default function genDiff(filepath1, filepath2, format = 'stylish') {
+  const fileData1 = parse(filepath1);
+  const fileData2 = parse(filepath2);
+
+  const diff = (data1, data2, property) => {
     const result = [];
     const key1 = _.keys(data1);
     const key2 = _.keys(data2);
@@ -56,5 +60,5 @@ export default function genDiff(file1, file2, format = 'stylish') {
 
   const formatter = getFormatter(format);
 
-  return formatter(diff(file1, file2));
+  return formatter(diff(fileData1, fileData2, ''));
 }
