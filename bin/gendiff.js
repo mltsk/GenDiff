@@ -6,10 +6,10 @@ const program = new Command();
 const options = program.opts();
 
 program
-  .arguments('<file1> <file2>')
+  .arguments('<filepath1> <filepath2>')
   .version('0.1.0')
   .description('Compares two configuration files and shows a difference.')
-  .option('-f, --format [type]', 'output format')
+  // .option('-f, --format [type]', 'output format')
   .action((filepath1, filepath2) => {
     const formatName = options.format;
     const result = genDiff(filepath1, filepath2, formatName);
