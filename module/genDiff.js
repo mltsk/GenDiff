@@ -17,7 +17,7 @@ const getFormatter = (format) => {
   return stylish;
 };
 
-export default function genDiff(filepath1, filepath2, format = 'stylish') {
+export default function genDiff(filepath1, filepath2, format) {
   const fileData1 = parse(filepath1);
   const fileData2 = parse(filepath2);
 
