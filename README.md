@@ -10,4 +10,8 @@ Step 2:
 Step 3:
 [![asciicast](https://asciinema.org/a/LLLJvadgjIzAylHeP3UHtLwon.svg)](https://asciinema.org/a/LLLJvadgjIzAylHeP3UHtLwon)
 Step 4:
-https://asciinema.org/a/5RpwlkBIEQD8zePrZb7PITYFL
+[![asciicast](https://asciinema.org/a/5RpwlkBIEQD8zePrZb7PITYFL.svg)](https://asciinema.org/a/5RpwlkBIEQD8zePrZb7PITYFL)
+Step 5:
+[![asciicast](https://asciinema.org/a/YsdHdpCwgkD2jDqhn1lKZOoex.svg)](https://asciinema.org/a/YsdHdpCwgkD2jDqhn1lKZOoex)
+Step 6:
+[![asciicast](https://asciinema.org/a/7hGsaXhJeiQhEUhAATdq90Ww6.svg)](https://asciinema.org/a/7hGsaXhJeiQhEUhAATdq90Ww6)
