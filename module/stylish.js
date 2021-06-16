@@ -21,7 +21,8 @@ const ObjectStylish = (obj, symbol, offset) => {
 };
 
 const stylish = (obj, symbol = ' ', offset = 4) => {
-  let result = '{\n';
+  const result = [];
+  result.push('{');
   obj.forEach((item) => {
     let { value } = item;
     if (typeof (item.children) === 'object') {
@@ -30,14 +31,15 @@ const stylish = (obj, symbol = ' ', offset = 4) => {
       value = ObjectStylish(value, symbol, offset + 4);
     }
     if (item.status === 'updated') {
-      result += `${makeSpace(offset, symbol, -2)}${getPrefix('removed')}${item.name}: ${value}\n`;
-      result += `${makeSpace(offset, symbol, -2)}${getPrefix('added')}${item.name}: ${item.newValue}\n`;
+      result.push(`${makeSpace(offset, symbol, -2)}${getPrefix('removed')}${item.name}: ${value}`);
+      result.push(`${makeSpace(offset, symbol, -2)}${getPrefix('added')}${item.name}: ${item.newValue}`);
     } else {
-      result += `${makeSpace(offset, symbol, -2)}${getPrefix(item.status)}${item.name}: ${value}\n`;
+      result.push(`${makeSpace(offset, symbol, -2)}${getPrefix(item.status)}${item.name}: ${value}`);
     }
   });
 
-  result += `${makeSpace(offset - 4, symbol)}}`;
-  return result;
+  result.push(`${makeSpace(offset - 4, symbol)}}`);
+  return result.join('\n');
 };
+
 export default stylish;
