@@ -14,7 +14,7 @@ const ObjectStylish = (obj, symbol, offset) => {
   Object.entries(obj).forEach((item) => {
     const key = item[0];
     let value = item[1];
-    if (typeof (value) === 'object') {
+    if (typeof (value) === 'object' && value !== null) {
       value = ObjectStylish(value, symbol, offset + 4);
     }
     result.push(`${makeSpace(offset, symbol)}${key}: ${value}`);
