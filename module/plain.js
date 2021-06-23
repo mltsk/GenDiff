@@ -5,7 +5,7 @@ const plain = (object) => {
       if (typeof (item.children) === 'object') {
         iter(item.children);
       }
-      let value = (typeof (item.value) === 'object') ? '[complex value]' : item.value;
+      let value = (typeof (item.value) === 'object' && item.value !== null) ? '[complex value]' : item.value;
       value = (typeof (item.value) === 'string') ? `'${value}'` : value;
       const newValue = (typeof (item.newValue) === 'string') ? `'${item.newValue}'` : item.newValue;
       if (item.status === 'added') {
