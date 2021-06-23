@@ -8,7 +8,8 @@ const plain = (object) => {
       }
       let value = (typeof (item.value) === 'object' && item.value !== null) ? '[complex value]' : item.value;
       value = (typeof (item.value) === 'string') ? `'${value}'` : value;
-      const newValue = (typeof (item.newValue) === 'string') ? `'${item.newValue}'` : item.newValue;
+      let newValue = (typeof (item.value) === 'object' && item.value !== null) ? '[complex value]' : item.value;
+      newValue = (typeof (item.newValue) === 'string') ? `'${item.newValue}'` : item.newValue;
       if (item.status === 'added') {
         result.push(`Property '${item.property}' was added with value: ${value}`);
       } else if (item.status === 'updated') {
