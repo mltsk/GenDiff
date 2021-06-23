@@ -13,9 +13,9 @@ const parse = (filename) => {
   console.log('filename: ', filename);
   const expansion = path.extname(filename);
   if (expansion === '.yml' || expansion === '.yaml') {
-    return yaml.load(fs.readFileSync(getFixturePath(filename), 'utf8'));
+    return yaml.load(fs.readFileSync((filename), 'utf8'));
   }
-  return JSON.parse(fs.readFileSync(getFixturePath(filename), 'utf8'));
+  return JSON.parse(fs.readFileSync((filename), 'utf8'));
 };
 
 export default parse;
