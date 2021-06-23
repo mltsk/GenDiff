@@ -6,8 +6,6 @@ const getPrefix = (status) => {
 };
 
 const ObjectStylish = (obj, symbol, offset) => {
-  console.log('obj: ', obj);
-
   const result = [];
   result.push('{');
 
