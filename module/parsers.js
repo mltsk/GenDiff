@@ -5,7 +5,13 @@ import path, { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+
+const getFixturePath = (filename) => {
+  if (path.isAbsolute(filename)) {
+    return filename;
+  }
+  return path.join(__dirname, '..', '__fixtures__', filename);
+};
 
 const parse = (filename) => {
   console.log('__dirname: ', __dirname);
