@@ -10,6 +10,7 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const parse = (filename) => {
   console.log('__dirname: ', __dirname);
   console.log('getFixturePath', getFixturePath(filename));
+  console.log('filename: ', filename);
   const expansion = path.extname(filename);
   if (expansion === '.yml' || expansion === '.yaml') {
     return yaml.load(fs.readFileSync(getFixturePath(filename), 'utf8'));
