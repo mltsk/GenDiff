@@ -2,14 +2,14 @@ const plain = (object) => {
   const result = [];
   const iter = (obj) => {
     obj.forEach((item) => {
-      console.log('item: ', item);
+      // console.log('item: ', item);
       if (typeof (item.children) === 'object') {
         iter(item.children);
       }
       let value = (typeof (item.value) === 'object' && item.value !== null) ? '[complex value]' : item.value;
       value = (typeof (item.value) === 'string') ? `'${value}'` : value;
-      let newValue = (typeof (item.value) === 'object' && item.value !== null) ? '[complex value]' : item.value;
-      newValue = (typeof (item.newValue) === 'string') ? `'${item.newValue}'` : item.newValue;
+      let newValue = (typeof (item.newValue) === 'object' && item.newValue !== null) ? '[complex value]' : item.newValue;
+      newValue = (typeof (item.newValue) === 'string') ? `'${newValue}'` : newValue;
       if (item.status === 'added') {
         result.push(`Property '${item.property}' was added with value: ${value}`);
       } else if (item.status === 'updated') {
