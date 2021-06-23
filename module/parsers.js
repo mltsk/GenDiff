@@ -14,11 +14,6 @@ const getFixturePath = (filename) => {
 };
 
 const parse = (filename) => {
-  console.log('__dirname: ', __dirname);
-  console.log('getFixturePath', getFixturePath(filename));
-  console.log('filename: ', filename);
-  // console.log(`Current directory: ${process.cwd()}`);
-  // console.log(path.resolve(('/mnt/d/hexlet/frontend-project-lvl2/__fixtures__/file1.json')));
   const expansion = path.extname(filename);
   if (expansion === '.yml' || expansion === '.yaml') {
     return yaml.load(fs.readFileSync(getFixturePath(filename), 'utf8'));
