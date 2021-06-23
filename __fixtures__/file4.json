@@ -11,7 +11,7 @@
         "key": "value",
         "ops": "vops",
         "doge": {
-          "wow": {"waw": "so much"}
+          "wow": "so much"
         }
       }
     },

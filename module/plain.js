@@ -2,7 +2,6 @@ const plain = (object) => {
   const result = [];
   const iter = (obj) => {
     obj.forEach((item) => {
-      // console.log('item: ', item);
       if (typeof (item.children) === 'object') {
         iter(item.children);
       }
