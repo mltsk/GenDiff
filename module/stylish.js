@@ -30,7 +30,7 @@ const stylish = (obj, symbol = ' ', offset = 4) => {
     let { value, newValue } = item;
     if (typeof (item.children) === 'object') {
       value = stylish(item.children, symbol, offset + 4);
-    } else if (typeof (value) === 'object') {
+    } else if (typeof (value) === 'object' && value !== null) {
       value = ObjectStylish(value, symbol, offset + 4);
     } else if (typeof (newValue) === 'object' && newValue !== null) {
       newValue = ObjectStylish(newValue, symbol, offset + 4);
