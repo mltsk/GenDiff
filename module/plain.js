@@ -1,25 +1,38 @@
 const plain = (object) => {
-  const result = [];
-  const iter = (obj) => {
-    obj.forEach((item) => {
+  const getFlatObject = (obj) => {
+    const flatObj = obj.flatMap((item) => {
       if (typeof (item.children) === 'object') {
-        iter(item.children);
+        return getFlatObject(item.children);
       }
-      let value = (typeof (item.value) === 'object' && item.value !== null) ? '[complex value]' : item.value;
-      value = (typeof (item.value) === 'string') ? `'${value}'` : value;
-      let newValue = (typeof (item.newValue) === 'object' && item.newValue !== null) ? '[complex value]' : item.newValue;
-      newValue = (typeof (item.newValue) === 'string') ? `'${newValue}'` : newValue;
-      if (item.status === 'added') {
-        result.push(`Property '${item.property}' was added with value: ${value}`);
-      } else if (item.status === 'updated') {
-        result.push(`Property '${item.property}' was updated. From ${value} to ${newValue}`);
-      } else if (item.status === 'removed') {
-        result.push(`Property '${item.property}' was removed`);
-      }
+      return item;
     });
-    return result;
+    return flatObj;
   };
-  return iter(object).join('\n');
+
+  const formatValue = (value) => {
+    if (value === null) return null;
+    switch (typeof value) {
+      case ('object'): return '[complex value]';
+      case 'string': return `'${value}'`;
+      default: return value;
+    }
+  };
+
+  const flatObj = getFlatObject(object);
+
+  const result = flatObj.filter((item) => (item.status === 'added' || item.status === 'updated' || item.status === 'removed'))
+    .reduce((acc, item) => {
+      const value = formatValue(item.value);
+      const newValue = formatValue(item.newValue);
+
+      if (item.status === 'added') {
+        return [...acc, [`Property '${item.property}' was added with value: ${value}`]];
+      } if (item.status === 'updated') {
+        return [...acc, [`Property '${item.property}' was updated. From ${value} to ${newValue}`]];
+      }
+      return [...acc, [`Property '${item.property}' was removed`]];
+    }, []);
+  return result.join('\n');
 };
 
 export default plain;
