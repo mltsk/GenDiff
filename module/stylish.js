@@ -8,11 +8,11 @@ const getPrefix = (status) => {
 const ObjectStylish = (obj, symbol, offset) => {
   const result = Object.entries(obj).reduce((acc, item) => {
     const [key, value] = item;
-    const getValue = (value) => {
-      if (typeof (value) === 'object' && value !== null) {
-        return ObjectStylish(value, symbol, offset + 4);
+    const getValue = (element) => {
+      if (typeof (element) === 'object' && element !== null) {
+        return ObjectStylish(element, symbol, offset + 4);
       }
-      return value;
+      return element;
     };
     return [...acc, `${makeSpace(offset, symbol)}${key}: ${getValue(value)}`];
   }, ['{']);
@@ -21,12 +21,12 @@ const ObjectStylish = (obj, symbol, offset) => {
 
 const stylish = (obj, symbol = ' ', offset = 4) => {
   const result = obj.reduce((acc, item) => {
-    const formatValue = (item, key) => {
-      if (typeof (item.children) === 'object') {
-        return stylish(item.children, symbol, offset + 4);
+    const formatValue = (element, key) => {
+      if (typeof (element.children) === 'object') {
+        return stylish(element.children, symbol, offset + 4);
       }
-      if (typeof (item[key]) === 'object' && item[key] !== null) {
-        return ObjectStylish(item[key], symbol, offset + 4);
+      if (typeof (element[key]) === 'object' && element[key] !== null) {
+        return ObjectStylish(element[key], symbol, offset + 4);
       }
       return item[key];
     };
