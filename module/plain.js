@@ -1,14 +1,6 @@
-const plain = (object) => {
-  const getFlatObject = (obj) => {
-    const flatObj = obj.flatMap((item) => {
-      if (typeof (item.children) === 'object') {
-        return getFlatObject(item.children);
-      }
-      return item;
-    });
-    return flatObj;
-  };
+import getFlatObject from './getFlatObject.js';
 
+const plain = (object) => {
   const formatValue = (value) => {
     if (value === null) return null;
     switch (typeof value) {
