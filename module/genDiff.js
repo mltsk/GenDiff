@@ -13,7 +13,7 @@ const getFormatter = (format) => {
   return stylish;
 };
 
-export default function genDiff(filepath1, filepath2, format) {
+const genDiff = (filepath1, filepath2, format) => {
   const fileData1 = parse(filepath1);
   const fileData2 = parse(filepath2);
 
@@ -52,3 +52,5 @@ export default function genDiff(filepath1, filepath2, format) {
   const formatter = getFormatter(format);
   return formatter(diff(fileData1, fileData2));
 }
+
+export default genDiff;
