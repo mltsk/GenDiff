@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "type": "module",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/mltsk/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/mltsk/frontend-project-lvl2/actions)",
+  "description": "Gendiff is a program that determines the difference between two data structures.",
   "main": "index.js",
   "scripts": {
     "test": "npx jest --bail"
