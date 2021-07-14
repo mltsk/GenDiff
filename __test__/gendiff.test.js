@@ -120,9 +120,9 @@ Property 'group3' was added with value: [complex value]`;
   }
 }`;
 
-  const actual1 = genDiff('file3.json', 'file4.json', 'stylish');
-  const actual2 = genDiff('file3.json', 'file4.json', 'plain');
-  const actual3 = genDiff('file3.json', 'file4.json', 'json');
+  const actual1 = genDiff('file1.json', 'file2.json', 'stylish');
+  const actual2 = genDiff('file1.json', 'file2.json', 'plain');
+  const actual3 = genDiff('file1.json', 'file2.json', 'json');
 
   expect(actual1).toEqual(expected1);
   expect(actual2).toEqual(expected2);
