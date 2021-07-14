@@ -16,13 +16,14 @@ const plain = (object) => {
     .reduce((acc, item) => {
       const value = formatValue(item.value);
       const newValue = formatValue(item.newValue);
+      const { property } = item;
 
       if (item.status === 'added') {
-        return [...acc, [`Property '${item.property}' was added with value: ${value}`]];
+        return [...acc, [`Property '${property}' was added with value: ${value}`]];
       } if (item.status === 'updated') {
-        return [...acc, [`Property '${item.property}' was updated. From ${value} to ${newValue}`]];
+        return [...acc, [`Property '${property}' was updated. From ${value} to ${newValue}`]];
       }
-      return [...acc, [`Property '${item.property}' was removed`]];
+      return [...acc, [`Property '${property}' was removed`]];
     }, []);
   return result.join('\n');
 };

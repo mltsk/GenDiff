@@ -1,43 +1,44 @@
-const makeSpace = (offset, symbol, correction = 0) => symbol.repeat(offset + correction);
+const makeSpace = (offset, correction = 0) => ' '.repeat(offset + correction);
 
 const getPrefix = (status) => {
   const prefix = { added: '+ ', removed: '- ', unchanged: '  ' };
   return prefix[status];
 };
 
-const ObjectStylish = (obj, symbol, offset) => {
+const ObjectStylish = (obj, offset) => {
   const result = Object.entries(obj).reduce((acc, item) => {
     const [key, value] = item;
     const getValue = (element) => {
       if (typeof (element) === 'object' && element !== null) {
-        return ObjectStylish(element, symbol, offset + 4);
+        return ObjectStylish(element, offset + 4);
       }
       return element;
     };
-    return [...acc, `${makeSpace(offset, symbol)}${key}: ${getValue(value)}`];
+    return [...acc, `${makeSpace(offset)}${key}: ${getValue(value)}`];
   }, ['{']);
-  return [...result, [`${makeSpace(offset - 4, symbol)}}`]].join('\n');
+  return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
 };
 
-const stylish = (obj, symbol = ' ', offset = 4) => {
+const stylish = (obj, offset = 4) => {
   const result = obj.reduce((acc, item) => {
     const formatValue = (element, key) => {
       if (typeof (element.children) === 'object') {
-        return stylish(element.children, symbol, offset + 4);
+        return stylish(element.children, offset + 4);
       }
       if (typeof (element[key]) === 'object' && element[key] !== null) {
-        return ObjectStylish(element[key], symbol, offset + 4);
+        return ObjectStylish(element[key], offset + 4);
       }
       return item[key];
     };
+    const { name, status } = item;
 
-    if (item.status === 'updated') {
-      return [...acc, [`${makeSpace(offset, symbol, -2)}${getPrefix('removed')}${item.name}: ${formatValue(item, 'value')}`],
-        [`${makeSpace(offset, symbol, -2)}${getPrefix('added')}${item.name}: ${formatValue(item, 'newValue')}`]];
+    if (status === 'updated') {
+      return [...acc, [`${makeSpace(offset, -2)}${getPrefix('removed')}${name}: ${formatValue(item, 'value')}`],
+        [`${makeSpace(offset, -2)}${getPrefix('added')}${name}: ${formatValue(item, 'newValue')}`]];
     }
-    return [...acc, [`${makeSpace(offset, symbol, -2)}${getPrefix(item.status)}${item.name}: ${formatValue(item, 'value')}`]];
+    return [...acc, [`${makeSpace(offset, -2)}${getPrefix(status)}${name}: ${formatValue(item, 'value')}`]];
   }, ['{']);
-  return [...result, [`${makeSpace(offset - 4, symbol)}}`]].join('\n');
+  return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
 };
 
 export default stylish;

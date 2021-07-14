@@ -5,16 +5,18 @@ const json = (object) => {
   const result = flatObject.filter((item) => (item.status === 'added' || item.status === 'updated' || item.status === 'removed'))
     .reduce((acc, item) => {
       const value = (typeof (item.value) === 'object') ? '[complex value]' : item.value;
-
-      if (item.status === 'updated') {
+      const {
+        name, property, status, newValue,
+      } = item;
+      if (status === 'updated') {
         return {
           ...acc,
-          [item.name]: {
-            property: item.property, status: item.status, value, newValue: item.newValue,
+          [name]: {
+            property, status, value, newValue,
           },
         };
       }
-      return { ...acc, [item.name]: { property: item.property, status: item.status, value } };
+      return { ...acc, [name]: { property, status, value } };
     }, {});
   return JSON.stringify(result, null, 2);
 };
