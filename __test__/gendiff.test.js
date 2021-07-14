@@ -1,7 +1,7 @@
 import genDiff from '../module/genDiff.js';
 
-test('genDiff', () => {
-  const expected1 = `{
+test('stylish', () => {
+  const expected = `{
     common: {
       + follow: false
         setting1: Value 1
@@ -46,7 +46,12 @@ test('genDiff', () => {
     }
 }`;
 
-  const expected2 = `Property 'common.follow' was added with value: false
+  const actual = genDiff('file1.json', 'file2.json', 'stylish');
+  expect(actual).toEqual(expected);
+});
+
+test('plain', () => {
+  const expected = `Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
 Property 'common.setting4' was added with value: 'blah blah'
@@ -58,7 +63,12 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
-  const expected3 = `{
+  const actual = genDiff('file1.json', 'file2.json', 'plain');
+  expect(actual).toEqual(expected);
+});
+
+test('json', () => {
+  const expected = `{
   "follow": {
     "property": "common.follow",
     "status": "added",
@@ -120,11 +130,6 @@ Property 'group3' was added with value: [complex value]`;
   }
 }`;
 
-  const actual1 = genDiff('file1.json', 'file2.json', 'stylish');
-  const actual2 = genDiff('file1.json', 'file2.json', 'plain');
-  const actual3 = genDiff('file1.json', 'file2.json', 'json');
-
-  expect(actual1).toEqual(expected1);
-  expect(actual2).toEqual(expected2);
-  expect(actual3).toEqual(expected3);
+  const actual = genDiff('file1.json', 'file2.json', 'json');
+  expect(actual).toEqual(expected);
 });
