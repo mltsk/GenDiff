@@ -3,6 +3,23 @@
 <a href="https://codeclimate.com/github/mltsk/frontend-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/7c9e17dd5b67001497e1/maintainability" /></a>
 <a href="https://codeclimate.com/github/mltsk/frontend-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/7c9e17dd5b67001497e1/test_coverage" /></a>
 ![example workflow](https://github.com/mltsk/frontend-project-lvl2/actions/workflows/nodejs.yml/badge.svg)<br>
+
+## Вычислитель отличий
+
+__Вычислитель отличий__ – программа, определяющая разницу между двумя структурами данных. Подобный механизм используется при выводе тестов или при автоматическом отслеживании изменений в конфигурационных файлах.
+
+__Возможности утилиты:__
+
+- поддержка разных входных форматов: yaml, json;
+- генерация отчета в различных форматах: plain text, stylish и json;
+
+## Установка
+
+Для установки выполните следующие команды:
+```
+npm install gendiff -g
+```
+## Steps:
 Step 1:
 [![asciicast](https://asciinema.org/a/iJte3d6NOF9WnyFkirQBrdkid.svg)](https://asciinema.org/a/iJte3d6NOF9WnyFkirQBrdkid)
 Step 2:
