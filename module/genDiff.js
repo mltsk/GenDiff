@@ -4,16 +4,16 @@ import parse from './parsers.js';
 
 const makePath = (property1, property2) => (property1 ? `${property1}.${property2}` : property2);
 
-const getFormatter = (format) => {
-  if (format === 'plain') {
+const getFormatter = (formatName) => {
+  if (formatName === 'plain') {
     return plain;
-  } if (format === 'json') {
+  } if (formatName === 'json') {
     return json;
   }
   return stylish;
 };
 
-const genDiff = (filepath1, filepath2, format) => {
+const genDiff = (filepath1, filepath2, formatName) => {
   const fileData1 = parse(filepath1);
   const fileData2 = parse(filepath2);
 
@@ -49,8 +49,8 @@ const genDiff = (filepath1, filepath2, format) => {
     }, '');
     return result;
   };
-  const formatter = getFormatter(format);
+  const formatter = getFormatter(formatName);
   return formatter(diff(fileData1, fileData2));
-}
+};
 
 export default genDiff;

@@ -1,4 +1,4 @@
-import getFlatObject from './getFlatObject.js';
+import genFlatObject from './genFlatObject.js';
 
 const plain = (object) => {
   const formatValue = (value) => {
@@ -10,7 +10,7 @@ const plain = (object) => {
     }
   };
 
-  const flatObj = getFlatObject(object);
+  const flatObj = genFlatObject(object);
 
   const result = flatObj.filter((item) => (item.status === 'added' || item.status === 'updated' || item.status === 'removed'))
     .reduce((acc, item) => {

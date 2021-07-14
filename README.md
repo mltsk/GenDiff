@@ -17,7 +17,7 @@ __Возможности утилиты:__
 
 Для установки выполните следующие команды:
 ```
-npm install gendiff -g
+npm install gendiff
 ```
 ## Steps:
 Step 1:

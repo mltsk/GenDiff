@@ -1,7 +1,7 @@
-import getFlatObject from './getFlatObject.js';
+import genFlatObject from './genFlatObject.js';
 
 const json = (object) => {
-  const flatObject = getFlatObject(object);
+  const flatObject = genFlatObject(object);
   const result = flatObject.filter((item) => (item.status === 'added' || item.status === 'updated' || item.status === 'removed'))
     .reduce((acc, item) => {
       const value = (typeof (item.value) === 'object') ? '[complex value]' : item.value;
