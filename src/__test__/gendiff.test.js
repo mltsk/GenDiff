@@ -28,61 +28,50 @@ Property 'group3' was added with value: [complex value]`;
 test('json', () => {
   const expected = `{
   "follow": {
-    "property": "common.follow",
     "type": "added",
     "value": false
   },
   "setting2": {
-    "property": "common.setting2",
     "type": "removed",
     "value": 200
   },
   "setting3": {
-    "property": "common.setting3",
     "type": "updated",
     "value": true,
     "newValue": null
   },
   "setting4": {
-    "property": "common.setting4",
     "type": "added",
     "value": "blah blah"
   },
   "setting5": {
-    "property": "common.setting5",
     "type": "added",
     "value": "[complex value]"
   },
   "wow": {
-    "property": "common.setting6.doge.wow",
     "type": "updated",
     "value": "",
     "newValue": "so much"
   },
   "ops": {
-    "property": "common.setting6.ops",
     "type": "added",
     "value": "vops"
   },
   "baz": {
-    "property": "group1.baz",
     "type": "updated",
     "value": "bas",
     "newValue": "bars"
   },
   "nest": {
-    "property": "group1.nest",
     "type": "updated",
     "value": "[complex value]",
     "newValue": "str"
   },
   "group2": {
-    "property": "group2",
     "type": "removed",
     "value": "[complex value]"
   },
   "group3": {
-    "property": "group3",
     "type": "added",
     "value": "[complex value]"
   }
