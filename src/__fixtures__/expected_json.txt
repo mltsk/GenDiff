@@ -1,0 +1,50 @@
+{
+  "follow": {
+    "type": "added",
+    "value": false
+  },
+  "setting2": {
+    "type": "removed",
+    "value": 200
+  },
+  "setting3": {
+    "type": "updated",
+    "value": true,
+    "newValue": null
+  },
+  "setting4": {
+    "type": "added",
+    "value": "blah blah"
+  },
+  "setting5": {
+    "type": "added",
+    "value": "[complex value]"
+  },
+  "wow": {
+    "type": "updated",
+    "value": "",
+    "newValue": "so much"
+  },
+  "ops": {
+    "type": "added",
+    "value": "vops"
+  },
+  "baz": {
+    "type": "updated",
+    "value": "bas",
+    "newValue": "bars"
+  },
+  "nest": {
+    "type": "updated",
+    "value": "[complex value]",
+    "newValue": "str"
+  },
+  "group2": {
+    "type": "removed",
+    "value": "[complex value]"
+  },
+  "group3": {
+    "type": "added",
+    "value": "[complex value]"
+  }
+}

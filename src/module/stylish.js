@@ -31,12 +31,13 @@ const stylish = (obj, offset = 4) => {
       return item[key];
     };
     const { name, type } = item;
+    const prefix = getPrefix(type);
 
     if (type === 'updated') {
-      return [...acc, [`${makeSpace(offset, -2)}${getPrefix('removed')}${name}: ${formatValue(item, 'value')}`],
-        [`${makeSpace(offset, -2)}${getPrefix('added')}${name}: ${formatValue(item, 'newValue')}`]];
+      return [...acc, [`${makeSpace(offset, -2)}- ${name}: ${formatValue(item, 'value')}`],
+        [`${makeSpace(offset, -2)}+ ${name}: ${formatValue(item, 'newValue')}`]];
     }
-    return [...acc, [`${makeSpace(offset, -2)}${getPrefix(type)}${name}: ${formatValue(item, 'value')}`]];
+    return [...acc, [`${makeSpace(offset, -2)}${prefix}${name}: ${formatValue(item, 'value')}`]];
   }, ['{']);
   return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
 };
