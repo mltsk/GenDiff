@@ -1,8 +1,8 @@
 const makeSpace = (offset, correction = 0) => ' '.repeat(offset + correction);
 
-const getPrefix = (status) => {
+const getPrefix = (type) => {
   const prefix = { added: '+ ', removed: '- ', unchanged: '  ' };
-  return prefix[status];
+  return prefix[type];
 };
 
 const ObjectStylish = (obj, offset) => {
@@ -30,13 +30,13 @@ const stylish = (obj, offset = 4) => {
       }
       return item[key];
     };
-    const { name, status } = item;
+    const { name, type } = item;
 
-    if (status === 'updated') {
+    if (type === 'updated') {
       return [...acc, [`${makeSpace(offset, -2)}${getPrefix('removed')}${name}: ${formatValue(item, 'value')}`],
         [`${makeSpace(offset, -2)}${getPrefix('added')}${name}: ${formatValue(item, 'newValue')}`]];
     }
-    return [...acc, [`${makeSpace(offset, -2)}${getPrefix(status)}${name}: ${formatValue(item, 'value')}`]];
+    return [...acc, [`${makeSpace(offset, -2)}${getPrefix(type)}${name}: ${formatValue(item, 'value')}`]];
   }, ['{']);
   return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
 };

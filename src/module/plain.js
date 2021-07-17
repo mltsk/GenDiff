@@ -12,15 +12,15 @@ const plain = (object) => {
 
   const flatObj = genFlatObject(object);
 
-  const result = flatObj.filter((item) => (item.status === 'added' || item.status === 'updated' || item.status === 'removed'))
+  const result = flatObj.filter((item) => (item.type === 'added' || item.type === 'updated' || item.type === 'removed'))
     .reduce((acc, item) => {
       const value = formatValue(item.value);
       const newValue = formatValue(item.newValue);
       const { property } = item;
 
-      if (item.status === 'added') {
+      if (item.type === 'added') {
         return [...acc, [`Property '${property}' was added with value: ${value}`]];
-      } if (item.status === 'updated') {
+      } if (item.type === 'updated') {
         return [...acc, [`Property '${property}' was updated. From ${value} to ${newValue}`]];
       }
       return [...acc, [`Property '${property}' was removed`]];

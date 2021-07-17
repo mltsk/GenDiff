@@ -29,61 +29,61 @@ test('json', () => {
   const expected = `{
   "follow": {
     "property": "common.follow",
-    "status": "added",
+    "type": "added",
     "value": false
   },
   "setting2": {
     "property": "common.setting2",
-    "status": "removed",
+    "type": "removed",
     "value": 200
   },
   "setting3": {
     "property": "common.setting3",
-    "status": "updated",
+    "type": "updated",
     "value": true,
     "newValue": null
   },
   "setting4": {
     "property": "common.setting4",
-    "status": "added",
+    "type": "added",
     "value": "blah blah"
   },
   "setting5": {
     "property": "common.setting5",
-    "status": "added",
+    "type": "added",
     "value": "[complex value]"
   },
   "wow": {
     "property": "common.setting6.doge.wow",
-    "status": "updated",
+    "type": "updated",
     "value": "",
     "newValue": "so much"
   },
   "ops": {
     "property": "common.setting6.ops",
-    "status": "added",
+    "type": "added",
     "value": "vops"
   },
   "baz": {
     "property": "group1.baz",
-    "status": "updated",
+    "type": "updated",
     "value": "bas",
     "newValue": "bars"
   },
   "nest": {
     "property": "group1.nest",
-    "status": "updated",
+    "type": "updated",
     "value": "[complex value]",
     "newValue": "str"
   },
   "group2": {
     "property": "group2",
-    "status": "removed",
+    "type": "removed",
     "value": "[complex value]"
   },
   "group3": {
     "property": "group3",
-    "status": "added",
+    "type": "added",
     "value": "[complex value]"
   }
 }`;

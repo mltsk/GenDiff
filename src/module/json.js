@@ -2,21 +2,21 @@ import genFlatObject from './genFlatObject.js';
 
 const json = (object) => {
   const flatObject = genFlatObject(object);
-  const result = flatObject.filter((item) => (item.status === 'added' || item.status === 'updated' || item.status === 'removed'))
+  const result = flatObject.filter((item) => (item.type === 'added' || item.type === 'updated' || item.type === 'removed'))
     .reduce((acc, item) => {
       const value = (typeof (item.value) === 'object') ? '[complex value]' : item.value;
       const {
-        name, property, status, newValue,
+        name, property, type, newValue,
       } = item;
-      if (status === 'updated') {
+      if (type === 'updated') {
         return {
           ...acc,
           [name]: {
-            property, status, value, newValue,
+            property, type, value, newValue,
           },
         };
       }
-      return { ...acc, [name]: { property, status, value } };
+      return { ...acc, [name]: { property, type, value } };
     }, {});
   return JSON.stringify(result, null, 2);
 };
