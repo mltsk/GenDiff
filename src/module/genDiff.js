@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { stylish, plain, json } from '../formatters/index.js';
-import parse from './parsers.js';
+import parse from '../parsers.js';
 import readFile from './readFile.js';
 
 const getFormatter = (formatName) => {
@@ -23,12 +23,12 @@ const genDiff = (filepath1, filepath2, formatName) => {
   const diff = (data1, data2) => {
     const key1 = _.keys(data1);
     const key2 = _.keys(data2);
-    const keys = _.uniq((key1).concat(key2));
+    const keys = _.union(key2, key1);
     const keysSorted = _.sortBy(keys);
 
     const result = keysSorted.map((key) => {
       const name = { name: key };
-      if ((typeof (data1[key]) === 'object' && typeof (data2[key]) === 'object')) {
+      if ((_.isObject(data1[key]) && _.isObject(data2[key]))) {
         return {
           ...name, type: 'unchanged', value: '[complex value]', children: diff(data1[key], data2[key]),
         };
