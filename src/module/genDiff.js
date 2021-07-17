@@ -18,6 +18,7 @@ const getFormatter = (formatName) => {
 };
 
 const genDiff = (filepath1, filepath2, formatName) => {
+  console.log('formatName2222: ', formatName);
   const fileData1 = parse(...readFile(filepath1));
   const fileData2 = parse(...readFile(filepath2));
 
