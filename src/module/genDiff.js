@@ -4,6 +4,7 @@ import parse from '../parsers.js';
 import readFile from './readFile.js';
 
 const getFormatter = (formatName) => {
+  console.log('formatName: ', formatName);
   switch (formatName) {
     case 'plain':
       return plain;
