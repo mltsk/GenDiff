@@ -17,7 +17,7 @@
     "url": "https://github.com/mltsk/frontend-project-lvl2/issues"
   },
   "bin": {
-    "gendiff": "./bin/gendiff.js"
+    "gendiff": "./src/bin/gendiff.js"
   },
   "jest": {
     "testEnvironment": "node",

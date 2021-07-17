@@ -1,4 +1,4 @@
-import genDiff from '../module/genDiff.js';
+import genDiff from '../../index.js';
 
 test('stylish', () => {
   const expected = `{
