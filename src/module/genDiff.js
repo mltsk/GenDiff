@@ -1,21 +1,26 @@
 import _ from 'lodash';
 import { stylish, plain, json } from '../formatters/index.js';
 import parse from './parsers.js';
+import readFile from './readFile';
 
 const makePath = (property1, property2) => (property1 ? `${property1}.${property2}` : property2);
 
 const getFormatter = (formatName) => {
-  if (formatName === 'plain') {
-    return plain;
-  } if (formatName === 'json') {
-    return json;
+  switch (formatName) {
+    case 'plain':
+      return plain;
+    case 'json':
+      return json;
+    case 'stylish':
+      return stylish;
+    default:
+      throw new Error('Unknown format!');
   }
-  return stylish;
 };
 
 const genDiff = (filepath1, filepath2, formatName) => {
-  const fileData1 = parse(filepath1);
-  const fileData2 = parse(filepath2);
+  const fileData1 = parse(...readFile(filepath1));
+  const fileData2 = parse(...readFile(filepath2));
 
   const diff = (data1, data2, path = '') => {
     const key1 = _.keys(data1);
@@ -23,30 +28,30 @@ const genDiff = (filepath1, filepath2, formatName) => {
     const keys = _.uniq((key1).concat(key2));
     const keysSorted = _.sortBy(keys);
 
-    const result = keysSorted.reduce((acc, key) => {
+    const result = keysSorted.map((key) => {
       const name = { name: key };
       const property = { property: makePath(path, key) };
       if ((typeof (data1[key]) === 'object' && typeof (data2[key]) === 'object')) {
-        return [...acc, {
+        return {
           ...name, ...property, status: 'unchanged', value: '[complex value]', children: diff(data1[key], data2[key], makePath(path, key)),
-        }];
+        };
       } if (key1.includes(key) && key2.includes(key) && data1[key] === data2[key]) {
-        return [...acc, {
+        return {
           ...name, ...property, status: 'unchanged', value: data1[key],
-        }];
+        };
       } if (key1.includes(key) && key2.includes(key) && data1[key] !== data2[key]) {
-        return [...acc, {
+        return {
           ...name, ...property, status: 'updated', value: data1[key], newValue: data2[key],
-        }];
+        };
       } if (key1.includes(key)) {
-        return [...acc, {
+        return {
           ...name, ...property, status: 'removed', value: data1[key],
-        }];
+        };
       }
-      return [...acc, {
+      return {
         ...name, ...property, status: 'added', value: data2[key],
-      }];
-    }, '');
+      };
+    });
     return result;
   };
   const formatter = getFormatter(formatName);
