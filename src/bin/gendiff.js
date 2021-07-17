@@ -12,8 +12,6 @@ program
   .option('-f, --format [type]', 'output format', 'stylish')
   .action((filepath1, filepath2) => {
     const formatName = options.format;
-    console.log('formatName333: ', formatName);
     const result = genDiff(filepath1, filepath2, formatName);
-    console.log(result);
   });
 program.parse(program.args);
