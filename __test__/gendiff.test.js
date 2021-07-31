@@ -1,5 +1,5 @@
-import genDiff from '../../index.js';
-import readFile from '../module/readFile.js';
+import genDiff from '../index.js';
+import readFile from '../src/module/readFile.js';
 
 test('stylish json', () => {
   const expected = readFile('expected_stylish.txt')[0];
