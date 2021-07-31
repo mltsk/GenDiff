@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { stylish, plain, json } from '../formatters/index.js';
-import parse from '../parsers.js';
+import { stylish, plain, json } from './formatters/index.js';
+import parse from './parsers.js';
 import readFile from './readFile.js';
 
 const getFormatter = (formatName) => {
