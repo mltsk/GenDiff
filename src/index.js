@@ -14,26 +14,25 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
     const keysSorted = _.sortBy(keys);
 
     const result = keysSorted.map((key) => {
-      const name = { name: key };
       if ((_.isObject(data1[key]) && _.isObject(data2[key]))) {
         return {
-          ...name, type: 'unchanged', value: '[complex value]', children: diff(data1[key], data2[key]),
+          name: key, type: 'unchanged', value: '[complex value]', children: diff(data1[key], data2[key]),
         };
       } if (key1.includes(key) && key2.includes(key) && data1[key] === data2[key]) {
         return {
-          ...name, type: 'unchanged', value: data1[key],
+          name: key, type: 'unchanged', value: data1[key],
         };
       } if (key1.includes(key) && key2.includes(key) && data1[key] !== data2[key]) {
         return {
-          ...name, type: 'updated', value: data1[key], newValue: data2[key],
+          name: key, type: 'updated', value: data1[key], newValue: data2[key],
         };
       } if (key1.includes(key)) {
         return {
-          ...name, type: 'removed', value: data1[key],
+          name: key, type: 'removed', value: data1[key],
         };
       }
       return {
-        ...name, type: 'added', value: data2[key],
+        name: key, type: 'added', value: data2[key],
       };
     });
     return result;
