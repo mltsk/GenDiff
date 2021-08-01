@@ -34,7 +34,7 @@ test('plain', () => {
 
 test('json', () => {
   const expected = fs.readFileSync(getFixturePath('expected_json.txt'), 'utf-8');
-  
+
   const actual = genDiff(jsonFilePath1, jsonFilePath2, 'json');
   expect(actual).toEqual(expected);
 });
