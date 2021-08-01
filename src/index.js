@@ -8,25 +8,24 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const fileData2 = parse(...getFileData(filepath2));
 
   const diff = (data1, data2) => {
-    const key1 = _.keys(data1);
-    const key2 = _.keys(data2);
-    const keys = _.union(key2, key1);
-    const keysSorted = _.sortBy(keys);
+    const keys1 = _.keys(data1);
+    const keys2 = _.keys(data2);
+    const keysSorted = _.sortBy(_.union(keys2, keys1));
 
     const result = keysSorted.map((key) => {
       if ((_.isObject(data1[key]) && _.isObject(data2[key]))) {
         return {
           name: key, type: 'unchanged', value: '[complex value]', children: diff(data1[key], data2[key]),
         };
-      } if (key1.includes(key) && key2.includes(key) && data1[key] === data2[key]) {
+      } if (keys1.includes(key) && keys2.includes(key) && data1[key] === data2[key]) {
         return {
           name: key, type: 'unchanged', value: data1[key],
         };
-      } if (key1.includes(key) && key2.includes(key) && data1[key] !== data2[key]) {
+      } if (keys1.includes(key) && keys2.includes(key) && data1[key] !== data2[key]) {
         return {
           name: key, type: 'updated', value: data1[key], newValue: data2[key],
         };
-      } if (key1.includes(key)) {
+      } if (keys1.includes(key)) {
         return {
           name: key, type: 'removed', value: data1[key],
         };
