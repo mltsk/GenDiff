@@ -1,24 +1,11 @@
 import _ from 'lodash';
-import { stylish, plain, json } from './formatters/index.js';
+import getFormatter from './formatters/index.js';
 import parse from './parsers.js';
-import readFile from './readFile.js';
-
-const getFormatter = (formatName) => {
-  switch (formatName) {
-    case 'plain':
-      return plain;
-    case 'json':
-      return json;
-    case 'stylish':
-      return stylish;
-    default:
-      throw new Error('Unknown format!');
-  }
-};
+import getFileData from './getFileData.js';
 
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
-  const fileData1 = parse(...readFile(filepath1));
-  const fileData2 = parse(...readFile(filepath2));
+  const fileData1 = parse(...getFileData(filepath1));
+  const fileData2 = parse(...getFileData(filepath2));
 
   const diff = (data1, data2) => {
     const key1 = _.keys(data1);

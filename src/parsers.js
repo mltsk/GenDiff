@@ -7,7 +7,7 @@ const parse = (fileData, expansion) => {
       return yaml.load(fileData);
     case '.json':
       return JSON.parse(fileData);
-    default: 
+    default:
       throw new Error('Unknown expansion!');
   }
 };
