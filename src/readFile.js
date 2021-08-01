@@ -3,7 +3,7 @@ import path from 'path';
 
 const readFile = (fileName) => {
   const expansion = path.extname(fileName);
-  const fullPath = path.resolve(process.cwd(), '__fixtures__', fileName);
+  const fullPath = path.resolve(process.cwd(), fileName);
   const data = fs.readFileSync(fullPath, 'utf-8');
   return [data, expansion];
 };
