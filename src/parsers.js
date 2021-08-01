@@ -1,10 +1,15 @@
 import yaml from 'js-yaml';
 
 const parse = (fileData, expansion) => {
-  if (expansion === '.yml' || expansion === '.yaml') {
-    return yaml.load(fileData);
+  switch (expansion) {
+    case '.yml':
+    case '.yaml':
+      return yaml.load(fileData);
+    case '.json':
+      return JSON.parse(fileData);
+    default: 
+      throw new Error('Unknown expansion!');
   }
-  return JSON.parse(fileData);
 };
 
 export default parse;
