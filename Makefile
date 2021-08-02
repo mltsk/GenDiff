@@ -11,7 +11,7 @@ lintfix:
 test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 run:
-	gendiff file1.json file2.json
+	gendiff __fixtures__/file1.json __fixtures__/file2.json
 jest:
 	npx -n '--experimental-vm-modules' jest
 rec:
