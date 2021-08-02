@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 const makeSpace = (offset, correction = 0) => ' '.repeat(offset + correction);
 
 const getPrefix = (type) => {
