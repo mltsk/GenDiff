@@ -1,3 +1,4 @@
+import _ from 'lodash';
 const makeSpace = (offset, correction = 0) => ' '.repeat(offset + correction);
 
 const getPrefix = (type) => {
@@ -9,7 +10,7 @@ const ObjectStylish = (obj, offset) => {
   const result = Object.entries(obj).reduce((acc, item) => {
     const [key, value] = item;
     const getValue = (element) => {
-      if (typeof (element) === 'object' && element !== null) {
+      if (_.isPlainObject(element)) {
         return ObjectStylish(element, offset + 4);
       }
       return element;
@@ -22,22 +23,20 @@ const ObjectStylish = (obj, offset) => {
 const stylish = (obj, offset = 4) => {
   const result = obj.reduce((acc, item) => {
     const formatValue = (element, key) => {
-      if (typeof (element.children) === 'object') {
+      if (_.isObject(element.children)) {
         return stylish(element.children, offset + 4);
       }
-      if (typeof (element[key]) === 'object' && element[key] !== null) {
+      if (_.isPlainObject((element[key]))) {
         return ObjectStylish(element[key], offset + 4);
       }
       return item[key];
     };
-    const { name, type } = item;
-    const prefix = getPrefix(type);
-
-    if (type === 'updated') {
-      return [...acc, [`${makeSpace(offset, -2)}- ${name}: ${formatValue(item, 'value')}`],
-        [`${makeSpace(offset, -2)}+ ${name}: ${formatValue(item, 'newValue')}`]];
+    const prefix = getPrefix(item.type);
+    if (item.type === 'updated') {
+      return [...acc, [`${makeSpace(offset, -2)}- ${item.name}: ${formatValue(item, 'value')}`],
+        [`${makeSpace(offset, -2)}+ ${item.name}: ${formatValue(item, 'newValue')}`]];
     }
-    return [...acc, [`${makeSpace(offset, -2)}${prefix}${name}: ${formatValue(item, 'value')}`]];
+    return [...acc, [`${makeSpace(offset, -2)}${prefix}${item.name}: ${formatValue(item, 'value')}`]];
   }, ['{']);
   return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
 };

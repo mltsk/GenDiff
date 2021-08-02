@@ -2,8 +2,6 @@ install:
 	npm ci
 publish:
 	npm publish --dry-run
-gendiff:
-	node gendiff.js
 lint:
 	npx eslint .
 lintfix:
@@ -12,8 +10,8 @@ test-coverage:
 	npm test -- --coverage --coverageProvider=v8
 run:
 	gendiff __fixtures__/file1.json __fixtures__/file2.json
-jest:
-	npx -n '--experimental-vm-modules' jest
+test:
+	npm test
 rec:
 	asciinema rec
 .PHONY: test
