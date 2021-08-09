@@ -16,15 +16,15 @@ const builtDiff = (data1, data2) => {
       };
     } if ((_.isObject(data1[key]) && _.isObject(data2[key]))) {
       return {
-        name: key, type: 'unchanged', value: '[complex value]', children: builtDiff(data1[key], data2[key]),
+        name: key, type: 'nested', children: builtDiff(data1[key], data2[key]),
       };
-    } if (data1[key] === data2[key]) {
+    } if (data1[key] !== data2[key]) {
       return {
-        name: key, type: 'unchanged', value: data1[key],
+        name: key, type: 'changed', value: data1[key], newValue: data2[key],
       };
     }
     return {
-      name: key, type: 'updated', value: data1[key], newValue: data2[key],
+        name: key, type: 'unchanged', value: data1[key],
     };
   });
   return result;

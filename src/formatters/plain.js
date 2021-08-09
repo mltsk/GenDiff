@@ -21,7 +21,7 @@ const plain = (object, property = '') => {
 
       if (item.type === 'added') {
         return [...acc, [`Property '${makePath(property, name)}' was added with value: ${value}`]];
-      } if (item.type === 'updated') {
+      } if (item.type === 'changed') {
         return [...acc, [`Property '${makePath(property, name)}' was updated. From ${value} to ${newValue}`]];
       } if (item.type === 'removed') {
         return [...acc, [`Property '${makePath(property, name)}' was removed`]];

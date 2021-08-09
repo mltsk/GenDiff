@@ -3,7 +3,7 @@ import _ from 'lodash';
 const makeSpace = (offset, correction = 0) => ' '.repeat(offset + correction);
 
 const getPrefix = (type) => {
-  const prefix = { added: '+ ', removed: '- ', unchanged: '  ' };
+  const prefix = { added: '+ ', removed: '- ', unchanged: '  ', nested: '  ' };
   return prefix[type];
 };
 
@@ -33,7 +33,7 @@ const stylish = (obj, offset = 4) => {
       return item[key];
     };
     const prefix = getPrefix(item.type);
-    if (item.type === 'updated') {
+    if (item.type === 'changed') {
       return [...acc, [`${makeSpace(offset, -2)}- ${item.name}: ${formatValue(item, 'value')}`],
         [`${makeSpace(offset, -2)}+ ${item.name}: ${formatValue(item, 'newValue')}`]];
     }
