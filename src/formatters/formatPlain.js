@@ -10,24 +10,23 @@ const formatValue = (value) => {
 };
 
 const plain = (object, property = '') => {
-  const result = object
-    .reduce((acc, item) => {
-      const value = formatValue(item.value);
-      const newValue = formatValue(item.newValue);
-      const { name } = item;
-      if (item.children) {
-        return [...acc, plain(item.children, makePath(property, name))];
-      }
+  const result = object.flatMap((item) => {
+    const value = formatValue(item.value);
+    const newValue = formatValue(item.newValue);
+    if (item.children) {
+      return [plain(item.children, makePath(property, item.name))];
+    }
 
-      if (item.type === 'added') {
-        return [...acc, [`Property '${makePath(property, name)}' was added with value: ${value}`]];
-      } if (item.type === 'changed') {
-        return [...acc, [`Property '${makePath(property, name)}' was updated. From ${value} to ${newValue}`]];
-      } if (item.type === 'removed') {
-        return [...acc, [`Property '${makePath(property, name)}' was removed`]];
-      }
-      return acc;
-    }, []);
+    if (item.type === 'added') {
+      return [[`Property '${makePath(property, item.name)}' was added with value: ${value}`]];
+    } if (item.type === 'changed') {
+      return [[`Property '${makePath(property, item.name)}' was updated. From ${value} to ${newValue}`]];
+    }
+    if (item.type === 'removed') {
+      return [[`Property '${makePath(property, item.name)}' was removed`]];
+    }
+    return [];
+  });
   return result.join('\n');
 };
 

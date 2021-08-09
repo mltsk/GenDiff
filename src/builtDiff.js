@@ -24,7 +24,7 @@ const builtDiff = (data1, data2) => {
       };
     }
     return {
-        name: key, type: 'unchanged', value: data1[key],
+      name: key, type: 'unchanged', value: data1[key],
     };
   });
   return result;

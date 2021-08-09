@@ -3,7 +3,9 @@ import _ from 'lodash';
 const makeSpace = (offset, correction = 0) => ' '.repeat(offset + correction);
 
 const getPrefix = (type) => {
-  const prefix = { added: '+ ', removed: '- ', unchanged: '  ', nested: '  ' };
+  const prefix = {
+    added: '+ ', removed: '- ', unchanged: '  ', nested: '  ',
+  };
   return prefix[type];
 };
 
@@ -22,7 +24,7 @@ const ObjectStylish = (obj, offset) => {
 };
 
 const stylish = (obj, offset = 4) => {
-  const result = obj.reduce((acc, item) => {
+  const result = (obj.flatMap((item) => {
     const formatValue = (element, key) => {
       if (_.isObject(element.children)) {
         return stylish(element.children, offset + 4);
@@ -34,12 +36,12 @@ const stylish = (obj, offset = 4) => {
     };
     const prefix = getPrefix(item.type);
     if (item.type === 'changed') {
-      return [...acc, [`${makeSpace(offset, -2)}- ${item.name}: ${formatValue(item, 'value')}`],
-        [`${makeSpace(offset, -2)}+ ${item.name}: ${formatValue(item, 'newValue')}`]];
+      return [`${makeSpace(offset, -2)}- ${item.name}: ${formatValue(item, 'value')}`,
+        `${makeSpace(offset, -2)}+ ${item.name}: ${formatValue(item, 'newValue')}`];
     }
-    return [...acc, [`${makeSpace(offset, -2)}${prefix}${item.name}: ${formatValue(item, 'value')}`]];
-  }, ['{']);
-  return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
+    return [[`${makeSpace(offset, -2)}${prefix}${item.name}: ${formatValue(item, 'value')}`]];
+  }));
+  return ['{', result, [`${makeSpace(offset - 4)}}`]].flat().join('\n');
 };
 
 export default stylish;

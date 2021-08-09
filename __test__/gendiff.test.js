@@ -15,22 +15,13 @@ const expectedStylish = fs.readFileSync(getFixturePath('expected_stylish.txt'), 
 const expectedPlain = fs.readFileSync(getFixturePath('expected_plain.txt'), 'utf-8');
 const expectedJson = fs.readFileSync(getFixturePath('expected_json.txt'), 'utf-8');
 
-test('stylish json', () => {
-  const actual = genDiff(jsonFilePath1, jsonFilePath2, 'stylish');
-  expect(actual).toBe(expectedStylish);
-});
+const formats = [
+  ['stylish', expectedStylish],
+  ['plain', expectedPlain],
+  ['json', expectedJson],
+];
 
-test('stylish yaml', () => {
-  const actual = genDiff(yamlFilePath1, yamlFilePath2, 'stylish');
-  expect(actual).toBe(expectedStylish);
-});
-
-test('plain', () => {
-  const actual = genDiff(jsonFilePath1, jsonFilePath2, 'plain');
-  expect(actual).toEqual(expectedPlain);
-});
-
-test('json', () => {
-  const actual = genDiff(jsonFilePath1, jsonFilePath2, 'json');
-  expect(actual).toEqual(expectedJson);
+test.each(formats)('genDiff %s', (format, expected) => {
+  expect(genDiff(jsonFilePath1, jsonFilePath2, format)).toBe(expected);
+  expect(genDiff(yamlFilePath1, yamlFilePath2, format)).toBe(expected);
 });
