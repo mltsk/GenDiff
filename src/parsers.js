@@ -1,14 +1,14 @@
 import yaml from 'js-yaml';
 
-const parse = (fileData, expansion) => {
-  switch (expansion) {
+const parse = (data, format) => {
+  switch (format) {
     case '.yml':
     case '.yaml':
-      return yaml.load(fileData);
+      return yaml.load(data);
     case '.json':
-      return JSON.parse(fileData);
+      return JSON.parse(data);
     default:
-      throw new Error('Unknown expansion!');
+      throw new Error(`Unknown ${format}!`);
   }
 };
 
