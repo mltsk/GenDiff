@@ -1,15 +1,15 @@
-import plain from './plain.js';
-import stylish from './stylish.js';
-import json from './json.js';
+import formatPlain from './formatPlain.js';
+import formatStylish from './formatStylish.js';
+import formatJson from './formatJson.js';
 
 const getFormatter = (formatName) => {
   switch (formatName) {
     case 'plain':
-      return plain;
+      return formatPlain;
     case 'json':
-      return json;
+      return formatJson;
     case 'stylish':
-      return stylish;
+      return formatStylish;
     default:
       throw new Error('Unknown format!');
   }
