@@ -23,25 +23,26 @@ const ObjectStylish = (obj, offset) => {
   return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
 };
 
-const stylish = (obj, offset = 4) => {
+const stringify = (element, key, offset) => {
+  if (_.isObject(element.children)) {
+    return formatStylish(element.children, offset + 4);
+  }
+  if (_.isPlainObject((element[key]))) {
+    return ObjectStylish(element[key], offset + 4);
+  }
+  return element[key];
+};
+
+const formatStylish = (obj, offset = 4) => {
   const result = (obj.flatMap((item) => {
-    const formatValue = (element, key) => {
-      if (_.isObject(element.children)) {
-        return stylish(element.children, offset + 4);
-      }
-      if (_.isPlainObject((element[key]))) {
-        return ObjectStylish(element[key], offset + 4);
-      }
-      return item[key];
-    };
     const prefix = getPrefix(item.type);
     if (item.type === 'changed') {
-      return [`${makeSpace(offset, -2)}- ${item.name}: ${formatValue(item, 'value')}`,
-        `${makeSpace(offset, -2)}+ ${item.name}: ${formatValue(item, 'newValue')}`];
+      return [`${makeSpace(offset, -2)}- ${item.name}: ${stringify(item, 'value', offset)}`,
+        `${makeSpace(offset, -2)}+ ${item.name}: ${stringify(item, 'newValue', offset)}`];
     }
-    return [[`${makeSpace(offset, -2)}${prefix}${item.name}: ${formatValue(item, 'value')}`]];
+    return [[`${makeSpace(offset, -2)}${prefix}${item.name}: ${stringify(item, 'value', offset)}`]];
   }));
   return ['{', result, [`${makeSpace(offset - 4)}}`]].flat().join('\n');
 };
 
-export default stylish;
+export default formatStylish;

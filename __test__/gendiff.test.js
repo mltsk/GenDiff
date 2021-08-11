@@ -22,6 +22,7 @@ const formats = [
 ];
 
 test.each(formats)('genDiff %s', (format, expected) => {
+  console.log('%s');
   expect(genDiff(jsonFilePath1, jsonFilePath2, format)).toBe(expected);
   expect(genDiff(yamlFilePath1, yamlFilePath2, format)).toBe(expected);
 });
