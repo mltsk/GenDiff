@@ -9,38 +9,28 @@ const getPrefix = (type) => {
   return prefix[type];
 };
 
-const ObjectStylish = (obj, offset) => {
-  const result = Object.entries(obj).reduce((acc, item) => {
-    const [key, value] = item;
-    const getValue = (element) => {
-      if (_.isPlainObject(element)) {
-        return ObjectStylish(element, offset + 4);
-      }
-      return element;
-    };
-    return [...acc, `${makeSpace(offset)}${key}: ${getValue(value)}`];
-  }, ['{']);
-  return [...result, [`${makeSpace(offset - 4)}}`]].join('\n');
-};
-
-const stringify = (element, key, offset) => {
-  if (_.isObject(element.children)) {
-    return formatStylish(element.children, offset + 4);
+const stringify = (value, spacesCount) => {
+  if (!_.isPlainObject(value)) {
+    return String(value);
   }
-  if (_.isPlainObject((element[key]))) {
-    return ObjectStylish(element[key], offset + 4);
-  }
-  return element[key];
+  const lines = Object
+    .entries(value)
+    .map(([key, val]) => `${makeSpace(spacesCount)}${key}: ${stringify(val, spacesCount + 4)}`);
+  return ['{', ...lines, `${makeSpace(spacesCount - 4)}}`].join('\n');
 };
 
 const formatStylish = (obj, offset = 4) => {
   const result = (obj.flatMap((item) => {
     const prefix = getPrefix(item.type);
-    if (item.type === 'changed') {
-      return [`${makeSpace(offset, -2)}- ${item.name}: ${stringify(item, 'value', offset)}`,
-        `${makeSpace(offset, -2)}+ ${item.name}: ${stringify(item, 'newValue', offset)}`];
+    switch (item.type) {
+      case 'nested':
+        return [[`${makeSpace(offset, -2)}${prefix}${item.name}: ${formatStylish(item.children, offset + 4)}`]];
+      case 'changed':
+        return [`${makeSpace(offset, -2)}- ${item.name}: ${stringify(item.value, offset + 4)}`,
+          `${makeSpace(offset, -2)}+ ${item.name}: ${stringify(item.newValue, offset + 4)}`];
+      default:
+        return [[`${makeSpace(offset, -2)}${prefix}${item.name}: ${stringify(item.value, offset + 4)}`]];
     }
-    return [[`${makeSpace(offset, -2)}${prefix}${item.name}: ${stringify(item, 'value', offset)}`]];
   }));
   return ['{', result, [`${makeSpace(offset - 4)}}`]].flat().join('\n');
 };

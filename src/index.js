@@ -4,9 +4,7 @@ import parse from './parsers.js';
 import getFileData from './getFileData.js';
 import builtTree from './treeBuilder.js';
 
-const getFormat = (filepath) => {
-  return path.extname(filepath).replace('.', '');
-}
+const getFormat = (filepath) => path.extname(filepath).replace('.', '');
 
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const fileData1 = parse(getFileData(filepath1), getFormat(filepath1));
