@@ -15,7 +15,7 @@ const stringify = (value, offset) => {
   }
   const lines = Object
     .entries(value)
-    .map(([key, value]) => `${makeSpace(offset)}${key}: ${stringify(value, offset + 4)}`);
+    .map(([key, val]) => `${makeSpace(offset)}${key}: ${stringify(val, offset + 4)}`);
   return ['{', ...lines, `${makeSpace(offset - 4)}}`].join('\n');
 };
 
