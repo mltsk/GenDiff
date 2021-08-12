@@ -9,14 +9,14 @@ const getPrefix = (type) => {
   return prefix[type];
 };
 
-const stringify = (value, spacesCount) => {
+const stringify = (value, offset) => {
   if (!_.isPlainObject(value)) {
     return String(value);
   }
   const lines = Object
     .entries(value)
-    .map(([key, value]) => `${makeSpace(spacesCount)}${key}: ${stringify(value, spacesCount + 4)}`);
-  return ['{', ...lines, `${makeSpace(spacesCount - 4)}}`].join('\n');
+    .map(([key, value]) => `${makeSpace(offset)}${key}: ${stringify(value, offset + 4)}`);
+  return ['{', ...lines, `${makeSpace(offset - 4)}}`].join('\n');
 };
 
 const formatStylish = (obj, offset = 4) => {
