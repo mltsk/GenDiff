@@ -17,7 +17,46 @@ __Возможности утилиты:__
 
 Для установки выполните следующие команды:
 ```
-npm install gendiff
+npm install gendiff -g
+```
+## Пример использования:
+```JS
+# справка
+gendiff -h
+
+Usage: gendiff [options] <filepath1> <filepath2>
+
+Compares two configuration files and shows a difference.
+
+Options:
+  -V, --version        output the version number
+  -f, --format [type]  output format (default: "stylish")
+  -h, --help           display help for command
+  
+# формат plain
+$ gendiff --format plain path/to/file.yml another/path/file.json
+
+Property 'common.follow' was added with value: false
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group2' was removed
+
+# формат stylish
+$ gendiff filepath1.json filepath2.json
+
+{
+  + follow: false
+    setting1: Value 1
+  - setting2: 200
+  - setting3: true
+  + setting3: {
+        key: value
+    }
+  + setting4: blah blah
+  + setting5: {
+        key5: value5
+    }
+}
+
 ```
 ## Steps:
 Step 1:

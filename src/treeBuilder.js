@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const builtTree = (data1, data2) => {
+const buildTree = (data1, data2) => {
   const keys1 = _.keys(data1);
   const keys2 = _.keys(data2);
   const sortedKeys = _.sortBy(_.union(keys2, keys1));
@@ -16,7 +16,7 @@ const builtTree = (data1, data2) => {
       };
     } if ((_.isObject(data1[key]) && _.isObject(data2[key]))) {
       return {
-        name: key, type: 'nested', children: builtTree(data1[key], data2[key]),
+        name: key, type: 'nested', children: buildTree(data1[key], data2[key]),
       };
     } if (!_.isEqual(data1[key], data2[key])) {
       return {
@@ -30,4 +30,4 @@ const builtTree = (data1, data2) => {
   return result;
 };
 
-export default builtTree;
+export default buildTree;

@@ -21,8 +21,10 @@ const formatPlain = (object, property = '') => {
         return `Property '${makePath(property, item.name)}' was updated. From ${value} to ${formatValue(item.newValue)}`;
       case 'removed':
         return `Property '${makePath(property, item.name)}' was removed`;
-      default:
+      case 'unchanged':
         return [];
+      default:
+        throw new Error(`Unknown type: ${item.type}!`);
     }
   });
   return result.join('\n');
