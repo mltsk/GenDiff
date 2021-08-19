@@ -15,9 +15,15 @@ __Возможности утилиты:__
 
 ## Установка
 
-Для установки выполните следующие команды:
+__Для установки выполните следующие команды:__
 ```
-npm install gendiff -g
+npm install gendiff -save
+```
+__Использование:__
+```JavaScript
+import gendiff from 'gendiff';
+
+const diff = gendiff(filepath1, filepath2, formatName);
 ```
 ## Пример использования:
 ```JS
