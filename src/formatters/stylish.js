@@ -19,15 +19,15 @@ const formatStylish = (object) => {
   const iter = (obj, depth = 1) => {
     const result = (obj.flatMap((item) => {
       switch (item.type) {
+        case 'added':
+          return `${makeSpace(depth, -2)}+ ${item.name}: ${stringify(item.value, depth + 1)}`;
+        case 'removed':
+          return `${makeSpace(depth, -2)}- ${item.name}: ${stringify(item.value, depth + 1)}`;
         case 'nested':
           return `${makeSpace(depth)}${item.name}: ${iter(item.children, depth + 1)}`;
         case 'changed':
           return [`${makeSpace(depth, -2)}- ${item.name}: ${stringify(item.value, depth + 1)}`,
             `${makeSpace(depth, -2)}+ ${item.name}: ${stringify(item.newValue, depth + 1)}`];
-        case 'added':
-          return `${makeSpace(depth, -2)}+ ${item.name}: ${stringify(item.value, depth + 1)}`;
-        case 'removed':
-          return `${makeSpace(depth, -2)}- ${item.name}: ${stringify(item.value, depth + 1)}`;
         case 'unchanged':
           return `${makeSpace(depth)}${item.name}: ${stringify(item.value, depth + 1)}`;
         default:

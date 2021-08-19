@@ -6,13 +6,13 @@ const buildTree = (data1, data2) => {
   const sortedKeys = _.sortBy(_.union(keys2, keys1));
 
   const result = sortedKeys.map((key) => {
-    if (!_.has(data2, key)) {
-      return {
-        name: key, type: 'removed', value: data1[key],
-      };
-    } if (!_.has(data1, key)) {
+    if (!_.has(data1, key)) {
       return {
         name: key, type: 'added', value: data2[key],
+      };
+    } if (!_.has(data2, key)) {
+      return {
+        name: key, type: 'removed', value: data1[key],
       };
     } if ((_.isObject(data1[key]) && _.isObject(data2[key]))) {
       return {
