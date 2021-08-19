@@ -9,25 +9,28 @@ const formatValue = (value) => {
   }
 };
 
-const formatPlain = (object, property = '') => {
-  const result = object.flatMap((item) => {
-    const value = formatValue(item.value);
-    switch (item.type) {
-      case 'nested':
-        return formatPlain(item.children, makePath(property, item.name));
-      case 'added':
-        return `Property '${makePath(property, item.name)}' was added with value: ${value}`;
-      case 'changed':
-        return `Property '${makePath(property, item.name)}' was updated. From ${value} to ${formatValue(item.newValue)}`;
-      case 'removed':
-        return `Property '${makePath(property, item.name)}' was removed`;
-      case 'unchanged':
-        return [];
-      default:
-        throw new Error(`Unknown type: ${item.type}!`);
-    }
-  });
-  return result.join('\n');
+const formatPlain = (object) => {
+  const iter = (obj, property = '') => {
+    const result = obj.flatMap((item) => {
+      const value = formatValue(item.value);
+      switch (item.type) {
+        case 'nested':
+          return iter(item.children, makePath(property, item.name));
+        case 'added':
+          return `Property '${makePath(property, item.name)}' was added with value: ${value}`;
+        case 'changed':
+          return `Property '${makePath(property, item.name)}' was updated. From ${value} to ${formatValue(item.newValue)}`;
+        case 'removed':
+          return `Property '${makePath(property, item.name)}' was removed`;
+        case 'unchanged':
+          return [];
+        default:
+          throw new Error(`Unknown type: ${item.type}!`);
+      }
+    });
+    return result.join('\n');
+  };
+  return iter(object);
 };
 
 export default formatPlain;

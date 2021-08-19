@@ -1,38 +1,41 @@
 import _ from 'lodash';
 
-const makeSpace = (offset, correction = 0) => ' '.repeat(offset + correction);
-
-const getPrefix = (type) => {
-  const prefix = {
-    added: '+ ', removed: '- ', unchanged: '  ', nested: '  ',
-  };
-  return prefix[type];
+const makeSpace = (depth, correction = 0) => {
+  const indent = 4;
+  return ' '.repeat(depth * indent + correction);
 };
 
-const stringify = (value, offset) => {
+const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
     return String(value);
   }
   const lines = Object
     .entries(value)
-    .map(([key, val]) => `${makeSpace(offset)}${key}: ${stringify(val, offset + 4)}`);
-  return ['{', ...lines, `${makeSpace(offset - 4)}}`].join('\n');
+    .map(([key, val]) => `${makeSpace(depth)}${key}: ${stringify(val, depth + 1)}`);
+  return ['{', ...lines, `${makeSpace(depth - 1)}}`].join('\n');
 };
 
-const formatStylish = (obj, offset = 4) => {
-  const result = (obj.flatMap((item) => {
-    const prefix = getPrefix(item.type);
-    switch (item.type) {
-      case 'nested':
-        return `${makeSpace(offset, -2)}${prefix}${item.name}: ${formatStylish(item.children, offset + 4)}`;
-      case 'changed':
-        return [`${makeSpace(offset, -2)}- ${item.name}: ${stringify(item.value, offset + 4)}`,
-          `${makeSpace(offset, -2)}+ ${item.name}: ${stringify(item.newValue, offset + 4)}`];
-      default:
-        return `${makeSpace(offset, -2)}${prefix}${item.name}: ${stringify(item.value, offset + 4)}`;
-    }
-  }));
-  return ['{', result, `${makeSpace(offset - 4)}}`].flat().join('\n');
+const formatStylish = (object) => {
+  const iter = (obj, depth = 1) => {
+    const result = (obj.flatMap((item) => {
+      switch (item.type) {
+        case 'nested':
+          return `${makeSpace(depth)}${item.name}: ${iter(item.children, depth + 1)}`;
+        case 'changed':
+          return [`${makeSpace(depth, -2)}- ${item.name}: ${stringify(item.value, depth + 1)}`,
+            `${makeSpace(depth, -2)}+ ${item.name}: ${stringify(item.newValue, depth + 1)}`];
+        case 'added':
+          return `${makeSpace(depth, -2)}+ ${item.name}: ${stringify(item.value, depth + 1)}`;
+        case 'removed':
+          return `${makeSpace(depth, -2)}- ${item.name}: ${stringify(item.value, depth + 1)}`;
+        case 'unchanged':
+          return `${makeSpace(depth)}${item.name}: ${stringify(item.value, depth + 1)}`;
+        default:
+          throw new Error(`Unknown type: ${item.type}!`);
+      }
+    }));
+    return ['{', result, `${makeSpace(depth - 1)}}`].flat().join('\n');
+  };
+  return iter(object);
 };
-
 export default formatStylish;
