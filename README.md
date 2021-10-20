@@ -17,7 +17,10 @@ __Возможности утилиты:__
 
 __Для установки выполните следующие команды:__
 ```
-npm install gendiff -save
+git clone git@github.com:mltsk/GenDiff.git
+cd GenDiff
+make install
+npm link
 ```
 __Использование:__
 ```JavaScript
